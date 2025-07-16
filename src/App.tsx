@@ -1,13 +1,24 @@
-// import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
+import { Route, Routes } from "react-router-dom";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home";
+import Introduce from "./pages/Introduce";
+import New from "./pages/New";
+import ProductPage from "./pages/ProductPage";
+import Shoopping from "./pages/Shoopping";
+import Shop from "./pages/Shop";
 
 function App() {
   return (
     <>
-      <Home />
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
-      </Routes> */}
+        <Route path="/introduce" element={<Introduce />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/news" element={<New />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/shopping" element={<Shoopping />} />
+      </Routes>
     </>
   );
 }
