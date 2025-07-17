@@ -214,19 +214,19 @@ const Header = () => {
                   to="/news"
                   className="block px-4 py-2 hover:bg-gray-100 text-sm"
                 >
-                  Tin tức chung
+                  Nhà đẹp
                 </Link>
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 text-sm"
                 >
-                  Nhà đẹp
+                  Không gian sống
                 </a>
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 text-sm"
                 >
-                  Không gian sống
+                  Tin tức
                 </a>
               </div>
             </li>

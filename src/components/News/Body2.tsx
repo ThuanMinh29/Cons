@@ -1,8 +1,18 @@
 "use client";
 
 import { Calendar, MessageSquare, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Body2() {
+  const navigate = useNavigate();
+
+  const handleImageClick = (index: number) => {
+    if (index === 0) {
+      // Bài viết "Sửa căn hộ chật chội thành thoáng rộng với 245 triệu"
+      navigate("/news/sua-can-ho-chat-choi");
+    }
+  };
+
   const newsArticles = [
     {
       image:
@@ -73,7 +83,8 @@ export default function Body2() {
                     <img
                       src={article.image || "/placeholder.svg"}
                       alt={article.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={() => handleImageClick(index)}
                     />
                     <div className="absolute bottom-0 left-0 bg-amber-500 text-white px-2 py-1 flex items-center gap-1 text-xs font-semibold rounded-tr-md">
                       <Calendar className="w-3 h-3" />

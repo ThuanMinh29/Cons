@@ -35,24 +35,24 @@ export default function Sale() {
   ];
 
   return (
-    <div className="bg-white">
-      <div className="container mx-auto px-4 py-0 pb-16">
+    <div className="bg-white -mt-5">
+      <div className="container mx-auto px-4 py-0 pb-8 md:pb-12 lg:pb-16">
         {/* Heading and Brand Logo */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-            <span className="w-1 h-6 bg-amber-500 mr-2"></span>
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center">
+            <span className="w-1 h-4 md:h-6 bg-amber-500 mr-2"></span>
             KHUYẾN MÃI HOT
           </h2>
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
           {products.map((product, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+              className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center">
+              <div className="relative w-full h-40 sm:h-44 md:h-48 bg-gray-100 flex items-center justify-center">
                 <img
                   src={product.image || "/placeholder.svg"}
                   alt={product.name}
@@ -64,16 +64,16 @@ export default function Sale() {
                   </span>
                 )}
               </div>
-              <div className="p-4">
-                <h3 className="text-base font-medium text-gray-900 mb-1">
+              <div className="p-3 md:p-4">
+                <h3 className="text-sm md:text-base font-medium text-gray-900 mb-1 md:mb-2 line-clamp-2 leading-tight">
                   {product.name}
                 </h3>
                 <div className="flex items-baseline gap-2">
-                  <p className="text-lg font-bold text-amber-500">
+                  <p className="text-base md:text-lg font-bold text-amber-500">
                     {product.currentPrice}
                   </p>
                   {product.originalPrice && (
-                    <p className="text-sm text-gray-500 line-through">
+                    <p className="text-xs md:text-sm text-gray-500 line-through">
                       {product.originalPrice}
                     </p>
                   )}
@@ -84,17 +84,17 @@ export default function Sale() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-2">
-          <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">
+        <div className="flex justify-center items-center gap-1 md:gap-2">
+          <button className="px-3 md:px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 text-sm md:text-base">
             {"«"}
           </button>
-          <button className="px-4 py-2 border border-amber-500 bg-amber-500 text-white rounded-md font-semibold">
+          <button className="px-3 md:px-4 py-2 border border-amber-500 bg-amber-500 text-white rounded-md font-semibold text-sm md:text-base">
             1
           </button>
-          <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">
+          <button className="px-3 md:px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 text-sm md:text-base">
             2
           </button>
-          <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">
+          <button className="px-3 md:px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 text-sm md:text-base">
             {"»"}
           </button>
         </div>

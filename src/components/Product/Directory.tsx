@@ -59,146 +59,155 @@ export default function Directory() {
   ];
 
   return (
-    <div className="bg-white">
-      <div className="container mx-auto px-4 py-1 md:py-2 lg:py-3 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <div className="bg-white -mt-5">
+      <div className="container mx-auto px-4 py-1 md:py-2 lg:py-3 grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column: Directory */}
-        <aside className="lg:col-span-1">
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-              <span className="w-1 h-6 bg-amber-500 mr-2"></span>
-              DANH MỤC
-            </h2>
-            <nav className="space-y-1 text-gray-700">
-              <a
-                href="#"
-                className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-              >
-                Trang chủ
-              </a>
-              <a
-                href="#"
-                className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-              >
-                Giới thiệu
-              </a>
+        <aside className="xl:col-span-1">
+          {/* Mobile toggle button */}
+          <div className="xl:hidden mb-4">
+            <button className="w-full bg-amber-500 text-white px-4 py-2 rounded-md text-sm font-semibold">
+              Danh mục sản phẩm
+            </button>
+          </div>
 
-              {/* Sản phẩm (Products) section */}
-              <div>
-                <button
-                  onClick={() => setIsProductsOpen(!isProductsOpen)}
-                  className="flex items-center justify-between w-full py-2 px-3 hover:bg-gray-50 rounded-md text-amber-500 font-semibold"
+          <div className="hidden xl:block">
+            <div className="mb-6 md:mb-8">
+              <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center">
+                <span className="w-1 h-4 md:h-6 bg-amber-500 mr-2"></span>
+                DANH MỤC
+              </h2>
+              <nav className="space-y-1 text-gray-700 text-sm md:text-base">
+                <a
+                  href="#"
+                  className="block py-2 px-3 hover:bg-gray-50 rounded-md"
                 >
-                  Sản phẩm
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      isProductsOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {isProductsOpen && (
-                  <div className="pl-6 space-y-1 mt-1">
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Dụng cụ cầm tay
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Nhóm sử dụng điện
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Phụ kiện gia đình
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Vận chuyển, nâng đỡ
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Dụng cụ làm vườn
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Sơn, dầu mỡ, hoá chất
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Vật dụng khác
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Kim khí, bảo hộ lao động
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              {/* Tin tức (News) section */}
-              <div>
-                <button
-                  onClick={() => setIsNewsOpen(!isNewsOpen)}
-                  className="flex items-center justify-between w-full py-2 px-3 hover:bg-gray-50 rounded-md"
+                  Trang chủ
+                </a>
+                <a
+                  href="#"
+                  className="block py-2 px-3 hover:bg-gray-50 rounded-md"
                 >
-                  Tin tức
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      isNewsOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {isNewsOpen && (
-                  <div className="pl-6 space-y-1 mt-1">
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Tin tức 1
-                    </a>
-                    <a
-                      href="#"
-                      className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-                    >
-                      Tin tức 2
-                    </a>
-                  </div>
-                )}
-              </div>
+                  Giới thiệu
+                </a>
 
-              <a
-                href="#"
-                className="block py-2 px-3 hover:bg-gray-50 rounded-md"
-              >
-                Liên hệ
-              </a>
-            </nav>
+                {/* Sản phẩm (Products) section */}
+                <div>
+                  <button
+                    onClick={() => setIsProductsOpen(!isProductsOpen)}
+                    className="flex items-center justify-between w-full py-2 px-3 hover:bg-gray-50 rounded-md text-amber-500 font-semibold"
+                  >
+                    Sản phẩm
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        isProductsOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {isProductsOpen && (
+                    <div className="pl-4 md:pl-6 space-y-1 mt-1">
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Dụng cụ cầm tay
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Nhóm sử dụng điện
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Phụ kiện gia đình
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Vận chuyển, nâng đỡ
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Dụng cụ làm vườn
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Sơn, dầu mỡ, hoá chất
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Vật dụng khác
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Kim khí, bảo hộ lao động
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                {/* Tin tức (News) section */}
+                <div>
+                  <button
+                    onClick={() => setIsNewsOpen(!isNewsOpen)}
+                    className="flex items-center justify-between w-full py-2 px-3 hover:bg-gray-50 rounded-md"
+                  >
+                    Tin tức
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        isNewsOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {isNewsOpen && (
+                    <div className="pl-4 md:pl-6 space-y-1 mt-1">
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Tin tức 1
+                      </a>
+                      <a
+                        href="#"
+                        className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                      >
+                        Tin tức 2
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                <a
+                  href="#"
+                  className="block py-2 px-3 hover:bg-gray-50 rounded-md"
+                >
+                  Liên hệ
+                </a>
+              </nav>
+            </div>
           </div>
         </aside>
 
         {/* Right Column: Product Listing */}
-        <main className="lg:col-span-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <main className="xl:col-span-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {products.map((product, index) => (
               <div
                 key={index}
-                className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center">
+                <div className="relative w-full h-40 sm:h-44 md:h-48 bg-gray-100 flex items-center justify-center">
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
@@ -210,16 +219,16 @@ export default function Directory() {
                     </span>
                   )}
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-medium text-gray-900 mb-1">
+                <div className="p-3 md:p-4">
+                  <h3 className="text-sm md:text-base font-medium text-gray-900 mb-1 md:mb-2 line-clamp-2 leading-tight">
                     {product.name}
                   </h3>
                   <div className="flex items-baseline gap-2">
-                    <p className="text-lg font-bold text-amber-500">
+                    <p className="text-base md:text-lg font-bold text-amber-500">
                       {product.currentPrice}
                     </p>
                     {product.originalPrice && (
-                      <p className="text-sm text-gray-500 line-through">
+                      <p className="text-xs md:text-sm text-gray-500 line-through">
                         {product.originalPrice}
                       </p>
                     )}

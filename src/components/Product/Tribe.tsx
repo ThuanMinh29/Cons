@@ -2,10 +2,18 @@
 
 import { LayoutGrid, List, Search } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Tribe() {
   const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
+  const navigate = useNavigate();
+
+  const handleProductClick = (index: number) => {
+    if (index === 0) {
+      // Sản phẩm "Bộ dụng cụ vặn vít đa năng 10 chi tiết B..."
+      navigate("/products/bo-dung-cu-van-vit");
+    }
+  };
 
   const brands = ["Bosch", "DeWALT"];
   const priceRanges = [
@@ -73,104 +81,113 @@ export default function Tribe() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-4 md:py-6 lg:py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 py-4 md:py-6 lg:py-8 grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {/* Left Column: Filters */}
-        <aside className="lg:col-span-1">
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-              <span className="w-1 h-6 bg-amber-500 mr-2"></span>
-              BỘ LỌC
-            </h2>
+        <aside className="xl:col-span-1">
+          {/* Mobile filter toggle button */}
+          <div className="xl:hidden mb-4">
+            <button className="w-full bg-amber-500 text-white px-4 py-2 rounded-md">
+              Bộ lọc
+            </button>
           </div>
 
-          {/* Brand Filter */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-amber-500 mb-4">
-              THƯƠNG HIỆU
-            </h3>
-            <div className="relative flex items-center mb-4">
-              <input
-                type="text"
-                placeholder="Tìm Thương hiệu"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-              />
-              <button className="absolute right-0 top-0 h-full px-3 bg-amber-500 text-white rounded-r-md flex items-center justify-center">
-                <Search className="w-4 h-4" />
-              </button>
+          <div className="hidden xl:block">
+            <div className="mb-6 md:mb-8">
+              <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center">
+                <span className="w-1 h-4 md:h-6 bg-amber-500 mr-2"></span>
+                BỘ LỌC
+              </h2>
             </div>
-            <div className="space-y-2">
-              {brands.map((brand, index) => (
-                <label
-                  key={index}
-                  className="flex items-center text-gray-700 text-sm cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
-                  />
-                  {brand}
-                </label>
-              ))}
-            </div>
-          </div>
 
-          {/* Price Filter */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-amber-500 mb-4">
-              GIÁ SẢN PHẨM
-            </h3>
-            <div className="space-y-2">
-              {priceRanges.map((range, index) => (
-                <label
-                  key={index}
-                  className="flex items-center text-gray-700 text-sm cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
-                  />
-                  {range}
-                </label>
-              ))}
+            {/* Brand Filter */}
+            <div className="mb-6 md:mb-8">
+              <h3 className="text-base md:text-lg font-semibold text-amber-500 mb-3 md:mb-4">
+                THƯƠNG HIỆU
+              </h3>
+              <div className="relative flex items-center mb-3 md:mb-4">
+                <input
+                  type="text"
+                  placeholder="Tìm Thương hiệu"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                />
+                <button className="absolute right-0 top-0 h-full px-3 bg-amber-500 text-white rounded-r-md flex items-center justify-center">
+                  <Search className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="space-y-2">
+                {brands.map((brand, index) => (
+                  <label
+                    key={index}
+                    className="flex items-center text-gray-700 text-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
+                    />
+                    {brand}
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Product Type Filter */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-amber-500 mb-4">
-              LOẠI SẢN PHẨM
-            </h3>
-            <div className="relative flex items-center mb-4">
-              <input
-                type="text"
-                placeholder="Tìm Loại"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-              />
-              <button className="absolute right-0 top-0 h-full px-3 bg-amber-500 text-white rounded-r-md flex items-center justify-center">
-                <Search className="w-4 h-4" />
-              </button>
+            {/* Price Filter */}
+            <div className="mb-6 md:mb-8">
+              <h3 className="text-base md:text-lg font-semibold text-amber-500 mb-3 md:mb-4">
+                GIÁ SẢN PHẨM
+              </h3>
+              <div className="space-y-2">
+                {priceRanges.map((range, index) => (
+                  <label
+                    key={index}
+                    className="flex items-center text-gray-700 text-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
+                    />
+                    {range}
+                  </label>
+                ))}
+              </div>
             </div>
-            <div className="space-y-2">
-              {productTypes.map((type, index) => (
-                <label
-                  key={index}
-                  className="flex items-center text-gray-700 text-sm cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
-                  />
-                  {type}
-                </label>
-              ))}
+
+            {/* Product Type Filter */}
+            <div className="mb-6 md:mb-8">
+              <h3 className="text-base md:text-lg font-semibold text-amber-500 mb-3 md:mb-4">
+                LOẠI SẢN PHẨM
+              </h3>
+              <div className="relative flex items-center mb-3 md:mb-4">
+                <input
+                  type="text"
+                  placeholder="Tìm Loại"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                />
+                <button className="absolute right-0 top-0 h-full px-3 bg-amber-500 text-white rounded-r-md flex items-center justify-center">
+                  <Search className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="space-y-2">
+                {productTypes.map((type, index) => (
+                  <label
+                    key={index}
+                    className="flex items-center text-gray-700 text-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-blue-600 rounded mr-2"
+                    />
+                    {type}
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
         </aside>
 
         {/* Right Column: Product Listing */}
-        <main className="lg:col-span-3">
+        <main className="xl:col-span-3">
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-4">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setViewMode("grid")}
@@ -181,7 +198,7 @@ export default function Tribe() {
                 }`}
                 aria-label="Grid view"
               >
-                <LayoutGrid className="w-5 h-5" />
+                <LayoutGrid className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button
                 onClick={() => setViewMode("list")}
@@ -192,12 +209,12 @@ export default function Tribe() {
                 }`}
                 aria-label="List view"
               >
-                <List className="w-5 h-5" />
+                <List className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-700">
-              <span>Sắp xếp:</span>
-              <select className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+              <span className="hidden sm:block">Sắp xếp:</span>
+              <select className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
                 <option>Thứ tự</option>
                 <option>Giá tăng dần</option>
                 <option>Giá giảm dần</option>
@@ -210,23 +227,24 @@ export default function Tribe() {
           <div
             className={
               viewMode === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                : "grid grid-cols-1 gap-6"
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6"
+                : "grid grid-cols-1 gap-4 md:gap-6"
             }
           >
             {products.map((product, index) => (
               <div
                 key={index}
-                className={`bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm ${
+                className={`bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
                   viewMode === "list" ? "flex items-center gap-4 p-4" : ""
                 }`}
               >
                 <div
                   className={`${
                     viewMode === "list"
-                      ? "w-24 h-24 flex-shrink-0"
-                      : "w-full h-48"
-                  } relative bg-gray-100 flex items-center justify-center`}
+                      ? "w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0"
+                      : "w-full h-40 sm:h-48"
+                  } relative bg-gray-100 flex items-center justify-center cursor-pointer`}
+                  onClick={() => handleProductClick(index)}
                 >
                   <img
                     src={product.image || "/placeholder.svg"}
@@ -234,11 +252,15 @@ export default function Tribe() {
                     className="w-full h-full object-contain p-2"
                   />
                 </div>
-                <div className={`${viewMode === "list" ? "flex-grow" : "p-4"}`}>
-                  <h3 className="text-base font-medium text-gray-900 mb-1">
+                <div
+                  className={`${
+                    viewMode === "list" ? "flex-grow" : "p-3 md:p-4"
+                  }`}
+                >
+                  <h3 className="text-sm md:text-base font-medium text-gray-900 mb-1 line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-lg font-bold text-amber-500">
+                  <p className="text-base md:text-lg font-bold text-amber-500">
                     {product.price}
                   </p>
                 </div>
