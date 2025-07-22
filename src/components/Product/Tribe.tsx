@@ -4,8 +4,17 @@ import { LayoutGrid, List, Search } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+type Product = {
+  name: string;
+  price: string;
+  image: string;
+};
+
 export default function Tribe() {
   const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
 
   const handleProductClick = (index: number) => {
@@ -13,6 +22,29 @@ export default function Tribe() {
       // Sản phẩm "Bộ dụng cụ vặn vít đa năng 10 chi tiết B..."
       navigate("/products/bo-dung-cu-van-vit");
     }
+  };
+
+  const handleBuyNow = (product: Product) => {
+    setSelectedProduct(product);
+    setQuantity(1);
+    setShowModal(true);
+  };
+
+  const handleQuantityChange = (change: number) => {
+    const newQuantity = quantity + change;
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+    }
+  };
+
+  const formatPrice = (price: string) => {
+    return price.replace(/\./g, "").replace("đ", "");
+  };
+
+  const calculateTotal = () => {
+    if (!selectedProduct) return "0đ";
+    const price = parseInt(formatPrice(selectedProduct.price));
+    return (price * quantity).toLocaleString("vi-VN") + "đ";
   };
 
   const brands = ["Bosch", "DeWALT"];
@@ -235,7 +267,7 @@ export default function Tribe() {
               <div
                 key={index}
                 className={`bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
-                  viewMode === "list" ? "flex items-center gap-4 p-4" : ""
+                  viewMode === "list" ? "flex items-center gap-4 p-4" : "group"
                 }`}
               >
                 <div
@@ -260,15 +292,191 @@ export default function Tribe() {
                   <h3 className="text-sm md:text-base font-medium text-gray-900 mb-1 line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-base md:text-lg font-bold text-amber-500">
-                    {product.price}
-                  </p>
+                  {viewMode === "grid" ? (
+                    <div className="relative">
+                      {/* Giá tiền - hiển thị khi không hover */}
+                      <div className="text-center group-hover:opacity-0 transition-opacity duration-300">
+                        <p className="text-base md:text-lg font-bold text-amber-500">
+                          {product.price}
+                        </p>
+                      </div>
+                      {/* Nút mua ngay - hiển thị khi hover */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button
+                          onClick={() => handleBuyNow(product)}
+                          className="bg-amber-500 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-amber-600 transition-colors"
+                        >
+                          MUA NGAY
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-base md:text-lg font-bold text-amber-500">
+                      {product.price}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </main>
       </div>
+
+      {/* Modal giỏ hàng */}
+      {showModal && selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-4xl mx-4 rounded-lg shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold z-10 cursor-pointer"
+              onClick={() => setShowModal(false)}
+            >
+              ×
+            </button>
+
+            <div className="p-6">
+              {/* Header */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <span className="text-gray-700">
+                  Bạn đã thêm{" "}
+                  <span className="text-red-500 font-medium">
+                    {selectedProduct.name}
+                  </span>{" "}
+                  vào giỏ hàng
+                </span>
+              </div>
+
+              {/* Cart Header */}
+              <div className="flex items-center gap-2 mb-6">
+                <svg
+                  className="w-6 h-6 text-yellow-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                </svg>
+                <span className="text-gray-700 font-medium">
+                  Giỏ hàng của bạn (1 sản phẩm)
+                </span>
+              </div>
+
+              {/* Table */}
+              <div className="border border-gray-200 rounded-lg overflow-hidden mb-6">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        SẢN PHẨM
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ĐƠN GIÁ
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        SỐ LƯỢNG
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        THÀNH TIỀN
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white">
+                    <tr>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={selectedProduct.image || "/placeholder.svg"}
+                            alt={selectedProduct.name}
+                            className="w-16 h-16 object-cover rounded"
+                          />
+                          <div>
+                            <p className="font-medium text-gray-900">
+                              {selectedProduct.name}
+                            </p>
+                            <div className="mt-1 space-y-1">
+                              <p className="text-sm text-gray-500 cursor-pointer hover:text-red-500">
+                                ✕ Bỏ sản phẩm
+                              </p>
+                              <p className="text-sm text-green-600">
+                                ✓ Sản phẩm vừa thêm!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-900">
+                        {selectedProduct.price}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleQuantityChange(-1)}
+                            className="w-8 h-8 border border-black rounded flex items-center justify-center hover:bg-black hover:text-white cursor-pointer text-black"
+                          >
+                            −
+                          </button>
+                          <span className="w-8 text-center text-black font-medium">
+                            {quantity}
+                          </span>
+                          <button
+                            onClick={() => handleQuantityChange(1)}
+                            className="w-8 h-8 border border-black rounded flex items-center justify-center hover:bg-black hover:text-white cursor-pointer text-black"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 font-medium text-gray-900">
+                        {calculateTotal()}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-between items-center mb-6">
+                <p className="text-gray-600">Giao hàng trên toàn quốc</p>
+                <p className="text-lg font-medium">
+                  Thành tiền:{" "}
+                  <span className="text-yellow-600 font-bold">
+                    {calculateTotal()}
+                  </span>
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-yellow-600 hover:text-yellow-700 font-medium flex items-center gap-1 cursor-pointer"
+                >
+                  ◀ Chọn sản phẩm khác
+                </button>
+                <button
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors"
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                >
+                  Tiến hành đặt hàng →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

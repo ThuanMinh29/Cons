@@ -385,7 +385,6 @@ export default function Product1() {
               </div>
             </div>
           </div>
-
           {/* Empty space to align with right column */}
           <div></div>
         </div>
