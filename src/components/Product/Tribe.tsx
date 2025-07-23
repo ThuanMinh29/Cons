@@ -468,6 +468,7 @@ export default function Tribe() {
                   className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors"
                   onClick={() => {
                     setShowModal(false);
+                    navigate("/pay");
                   }}
                 >
                   Tiến hành đặt hàng →
